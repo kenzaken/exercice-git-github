@@ -12,7 +12,7 @@ test("un test qui ne permet de s'inscrire sur le site https://agropeyi.fr/", asy
     let number = Math.floor(Math.random() * 200) + 10
     let email = "kenza" + number + "@gmail.com"
     // password random
-    let password = "pass" + number + "012@"
+    const password = "pass" + number + "012@"
 
     await page.goto("https://agropeyi.fr/")
 
