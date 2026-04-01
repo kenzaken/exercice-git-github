@@ -3,11 +3,7 @@ pipeline{
         docker {
             image 'mcr.microsoft.com/playwright:v1.58.2-noble'
             args '-u root --entrypoint='
-        }
-
-        triggers{
-        cron('59 12 * * *')
-    } 
+        }  
     }
     stages{
         stage('install dependence'){
