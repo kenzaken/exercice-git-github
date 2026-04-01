@@ -32,3 +32,4 @@ test("un test qui ne permet de s'inscrire sur le site https://agropeyi.fr/", asy
     await expect(page.locator(".alert.alert-success")).toBeVisible()
 })
 
+//git pull
