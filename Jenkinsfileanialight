@@ -6,6 +6,13 @@ pipeline{
         } 
 
     }
+      parameters {
+        string(name: 'example', defaultValue: 'example', description: 'cibler le fichier')      
+        choice(name: 'tags', choices: ['@regression', '@smoke', '@endtoend'] , description: 'cibler les test que on shouhaite ')
+        booleanParam(name:'Tag',defaultValue:true,description: 'si le tag est bien choisis  ')
+        choice(name: 'browser', choices: ['chromium', 'firefox', 'webkit'], description: 'choisis votre navigateur')
+
+    }
     
     stages{
         stage('install dependence'){
@@ -15,9 +22,17 @@ pipeline{
         }
         stage('lancement de test'){
             steps{
-                sh 'npx playwright test --project=chromium'
+                echo "tag: ${params.tags}"
+                script {
+                    if(params.Tag==true){
+                        echo "npx playwright test --grep '${params.tags}' --project=${params.browser}"
+                        sh "npx playwright test --grep '${params.tags}' --project=${params.browser}"
+                    } else{
+                        sh "npx playwright test --project=${params.browser}"
+                    }
+                 }
             }
         }
-       
-    }
+   }
+
 }
