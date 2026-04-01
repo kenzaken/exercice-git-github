@@ -16,18 +16,15 @@ pipeline{
 
     }
     stages {
-        stage('paramettre') {
-            steps {
-                echo "list ${params.list}"
-                
-                echo "tags: ${params.tags}"
-
-                echo "Choice: ${params.navigateur}"
-
+        stage('installation')
+        {
+            steps{
+                sh 'npm install'
             }
         }
 
          stage('lancer le test'){
+            
             steps{
                 script{
                     if(params.list==true){
