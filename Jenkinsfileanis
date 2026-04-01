@@ -39,16 +39,5 @@ pipeline{
             }
            
         }
-    stages{
-        stage('install dependence'){
-            steps{
-               sh 'npm install'
-            }
-        }
-        stage('lancement de test'){
-            steps{
-                sh 'npx playwright test --project=chromium'
-            }
-        }
-    }
+    
 }
