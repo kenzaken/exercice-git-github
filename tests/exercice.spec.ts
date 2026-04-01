@@ -7,7 +7,8 @@ import { link } from 'node:fs'
 //remplir les champs  
 // ensuite cliquer sur le button valide 
 
-test("un test qui ne permet de s'inscrire sur le site https://agropeyi.fr/", async ({ page }) => {
+
+test("un test qui ne permet de s'inscrire sur le site https://agropeyi.fr/",{tag:"@regression"}, async ({ page }) => {
     //email random
     let number = Math.floor(Math.random() * 200) + 10
     let email = "kenza" + number + "@gmail.com"
