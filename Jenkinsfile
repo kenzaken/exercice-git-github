@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('titre'){
             steps{
-                echo "hello samia from git"
+                echo "hello"
             }
         }
     }
