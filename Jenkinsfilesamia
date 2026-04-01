@@ -16,5 +16,6 @@ pipeline{
                 sh 'npx playwright test --project=chromium'
             }
         }
+        
     }
 }
