@@ -1,0 +1,33 @@
+pipeline{
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+            args '-u root --entrypoint='
+        }  
+    }
+    parameters {
+        booleanParam(name: 'istags', defaultValue: true, description: 'Lancer le test avec ou sans les tags')
+        choice(name: 'tags', choices: ['@regression', '@smoke', '@endtoend'], description: 'choisir les tags à lancer')
+        choice(name: 'browser', choices: ['chromium', 'firefox', 'webkit'], description: 'Choisir le navigateur à lancer')
+
+    }
+
+    stages{
+        stage('install dependence'){
+            steps{
+               sh 'npm install'
+            }
+        }
+        stage('lancement de test'){
+            steps{
+                script {
+                    if (params.istags==true) {
+                        sh "npx playwright test  --grep '${params.tags}' --project='${params.browser}'"
+                    } else {
+                        sh "npx playwright test --project='${params.browser}'"
+                    }
+                }
+            }
+        }
+    }
+}
