@@ -1,9 +1,19 @@
 pipeline{
-    agent any
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.57.0-noble'
+            args '-u root --entrypoint='
+        }
+    }
     stages{
-        stage('titre'){
+        stage('install dependence'){
             steps{
-                echo "hello"
+               sh 'npm install'
+            }
+        }
+        stage('lancement de test'){
+            steps{
+                sh 'npx playwright test --project=chromium'
             }
         }
     }
