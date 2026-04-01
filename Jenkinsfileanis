@@ -5,6 +5,40 @@ pipeline{
             args '-u root --entrypoint='
         }  
     }
+
+     parameters {
+        
+        booleanParam(name: 'list', defaultValue: true, description: 'lancer un tag ou non')
+
+        choice(name: 'tags', choices: ['@smoke', '@regression', '@endtoend'], description: 'veuillez choisir un tag')
+
+        choice(name: 'navigateur', choices: ['chromium', 'firefox', 'edge'], description: 'veuillez choisir un des trois browser')
+
+    }
+    stages {
+        stage('paramettre') {
+            steps {
+                echo "list ${params.list}"
+                
+                echo "tags: ${params.tags}"
+
+                echo "Choice: ${params.navigateur}"
+
+            }
+        }
+
+         stage('lancer le test'){
+            steps{
+                script{
+                    if(params.list==true){
+                      sh "npx playwright test --grep ${params.tags} --project='${params.navigateur}'"
+                    }else {
+                        sh "npx playwright test --project='${params.navigateur}'"
+                    }
+                }
+            }
+           
+        }
     stages{
         stage('install dependence'){
             steps{
